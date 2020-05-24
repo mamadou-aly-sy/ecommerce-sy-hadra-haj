@@ -2,16 +2,17 @@
 require_once "database/db.php";
 
 ob_start();
+
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
 } else {
     $page = "acceuil";
 }
 
-if ($page == "contact") {
-    require "pages/contact.php";
+if (file_exists("pages/$page.php")) {
+    require "pages/$page.php";
 } else {
-    require "pages/acceuil.php";
+    require "pages/404.php";;
 }
 
 $content = ob_get_clean();
