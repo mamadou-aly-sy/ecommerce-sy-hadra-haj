@@ -8,7 +8,6 @@ if (isset($_GET['page'])) {
 } else {
     $page = "acceuil";
 }
-
 if (file_exists("pages/$page.php")) {
     require "pages/$page.php";
 } else {
