@@ -1,19 +1,5 @@
-<?php
-require_once "database/db.php";
+<?php require_once "pages/includes/header.php"; ?>
 
-ob_start();
+<a href="pages/login.php">login</a>
 
-if (isset($_GET['page'])) {
-    $page = $_GET['page'];
-} else {
-    $page = "acceuil";
-}
-if (file_exists("pages/$page.php")) {
-    require "pages/$page.php";
-} else {
-    require "pages/404.php";;
-}
-
-$content = ob_get_clean();
-
-require "pages/default.php";
+<?php require_once "pages/includes/footer.php"; ?>
