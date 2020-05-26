@@ -1,0 +1,26 @@
+.carousel-caption {
+  top: 200px !important;
+}
+
+.bg-custum-green {
+  background-color: #28a745;
+}
+
+.m-right {
+  border: 2px solid #28a745;
+  border-right: 2px solid #fff;
+}
+
+.offer {
+  color: #fff;
+}
+
+.underline {
+  width: 100px;
+  height: 2px;
+  background-color: #28a745;
+}
+
+.bg-light-gray {
+  background-color: #fff;
+}
