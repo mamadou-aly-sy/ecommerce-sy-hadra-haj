@@ -18,6 +18,9 @@ if(!empty($_POST)){
            if($user['role'] == 'ADMIN'){
                $_SESSION['PROFILE'] = $user;
                header('location:dashboard.php');
+           }else{
+               $_SESSION['erreur'] = "Attention : Votre Compte est suspendu pour le moment .Veillez contacter l'administrateur";
+               header('location:login.php');
            }
         } else{
             $_SESSION['erreur'] = "Pseudo ou mot de passe incorrect !";
@@ -75,7 +78,7 @@ if(isset($_SESSION['erreur'])){
                                     </form>
                                 </div>
                                 <div class="card-footer text-center">
-                                    <div class="small"><a href="login.php">Creer un Compte ? Sign up!</a></div>
+                                    <div class="small"><a href="register.php">Creer un Compte ? Sign up!</a></div>
                                 </div>
                             </div>
                         </div>

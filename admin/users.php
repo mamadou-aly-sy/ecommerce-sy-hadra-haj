@@ -2,12 +2,22 @@
 
 session_start();
 
+require_once '../database/db.php';
+
+$requette = "SELECT username,nom,prenom,role,etat FROM users ";
+$users = $db->query($requette);
+
+$requette_count = "SELECT COUNT(*) countU FROM users ";
+$resultat_count = $db->query($requette_count );
+$tabCount = $resultat_count->fetch();
+$nbu = $tabCount['countU'];
+
 ?>
 <?php require 'includes/header.php'?>
 
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="#">Mon Application</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button><!-- Navbar Search-->
+		<a class="navbar-brand" href="index.php">Mon Application</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button><!-- Navbar Search-->
 		<form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
 			<div class="input-group">
 				<input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
@@ -36,7 +46,6 @@ session_start();
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-						<!--<div class="sb-sidenav-menu-heading">Core</div>-->
 						<a class="nav-link" href="index.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
 							Tableau de Bord
@@ -89,13 +98,10 @@ session_start();
 			<main>
 				<div class="container-fluid">
 					<h1 class="mt-4">Mon tableau de bord</h1>
-					<ol class="breadcrumb mb-4">
-						<li class="breadcrumb-item active">Dashboard</li>
-					</ol>
 					<div class="row">
 						<div class="col-xl-3 col-md-6">
 							<div class="card bg-primary text-white mb-4">
-								<div class="card-body">Utilisateurs ( <?php  //$nb_users ;?> utilisateurs)</div>
+								<div class="card-body">Utilisateurs ( <?= $nbu ?> )</div>
 								<div class="card-footer d-flex align-items-center justify-content-between">
 									<a class="small text-white stretched-link" href="users.php"> Details</a>
 									<div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -129,42 +135,36 @@ session_start();
 								</div>
 							</div>
 						</div>
-					</div>
-
-					<div class="card mb-4">
-						<div class="card-header"><i class="fas fa-table mr-1"></i>DataTable Example</div>
-						<div class="card-body">
+                    </div>
+                    <div class="card mb-4">
+						<div class="card-header bg-info"><i class="fas fa-user mr-1"></i>Liste des utilisateurs</div>
+						<div class="card-body bg-light">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 										<tr>
-											<th>Name</th>
-											<th>Position</th>
-											<th>Office</th>
-											<th>Age</th>
-											<th>Start date</th>
-											<th>Salary</th>
-										</tr>
+											<th>Nom</th>
+											<th>Prénom</th>
+											<th>Login</th>
+											<th>Role</th>
+                                            <th>Etat du compte </th>
+                                            <th>Actions</th>
+                                        </tr>
 									</thead>
-									<tfoot>
-										<tr>
-											<th>Name</th>
-											<th>Position</th>
-											<th>Office</th>
-											<th>Age</th>
-											<th>Start date</th>
-											<th>Salary</th>
-										</tr>
-									</tfoot>
 									<tbody>
+                                    <?php while($user = $users->fetch()) :?>
 										<tr>
-											<td>Tiger Nixon</td>
-											<td>System Architect</td>
-											<td>Edinburgh</td>
-											<td>61</td>
-											<td>2011/04/25</td>
-											<td>$320,800</td>
-										</tr>
+                                            <td><?= $user['nom']?></td>
+                                            <td><?= $user['prenom']?></td>
+                                            <td><?= $user['username']?></td>
+                                            <td><?= $user['role']?></td>
+                                            <td><?= $user['etat']?></td>
+                                            <td>
+                                                <a href="#" class="btn btn-info mr-2">Editer <i class="fas fa-edit"></i></a>
+                                                <a href="#" class="btn btn-danger mr-2">Supprimer <i class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    <?php endwhile ?>
 									</tbody>
 								</table>
 							</div>
