@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  mer. 03 juin 2020 à 23:28
+-- Généré le :  sam. 13 juin 2020 à 18:39
 -- Version du serveur :  10.4.6-MariaDB
 -- Version de PHP :  7.3.9
 
@@ -58,9 +58,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `pwd` varchar(255) NOT NULL,
-  `role` varchar(30) NOT NULL DEFAULT 'user_simple',
-  `nom` varchar(255) NOT NULL,
-  `prenom` varchar(255) NOT NULL,
+  `role` varchar(30) NOT NULL DEFAULT 'vendeur',
   `email` varchar(255) NOT NULL,
   `etat` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -69,11 +67,11 @@ CREATE TABLE `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `pwd`, `role`, `nom`, `prenom`, `email`, `etat`) VALUES
-(2, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'ADMIN', 'Admin', 'Admin', 'work-team-isi@gmail.com', 1),
-(3, 'hadra92i', 'cd891443ec8622bd2b4f1891f29257ae8eae72f2', 'user_simple', 'Moustapha', 'El Hadramy', 'hadraiizi547@gmail.com', 0),
-(4, 'Elhaj', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'user_simple', 'N\'diaye', 'El Haj', 'haj@gmail.com', 0),
-(5, 'Mamco', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'user_simple', 'Sy', 'Mamadou', 'mamdou@gmail.com', 0);
+INSERT INTO `users` (`id`, `username`, `pwd`, `role`, `email`, `etat`) VALUES
+(2, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'ADMIN', 'work-team-isi@gmail.com', 1),
+(3, 'hadra_92I', 'cd891443ec8622bd2b4f1891f29257ae8eae72f2', 'VENDEUR', 'hadraiizi547@icloud.com', 0),
+(4, 'elhajvevo', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'VENDEUR', 'elhaj@gmail.com', 0),
+(5, 'Mamco_Sy', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'VENDEUR', 'mamco@gmail.com', 0);
 
 --
 -- Index pour les tables déchargées
@@ -118,7 +116,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Contraintes pour les tables déchargées
