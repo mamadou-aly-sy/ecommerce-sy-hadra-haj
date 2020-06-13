@@ -5,39 +5,39 @@ require_once '../database/db.php';
 
 $message = '';
 
-if(!empty($_POST)){
-    if(!empty($_POST['pseudo']) && !empty($_POST['pwd'])){
-      
+if (!empty($_POST)) {
+    if (!empty($_POST['pseudo']) && !empty($_POST['pwd'])) {
+
         $pseudo = $_POST['pseudo'];
-        $pwd   = sha1($_POST['pwd']); 
+        $pwd   = sha1($_POST['pwd']);
 
         $requette = "SELECT * FROM users WHERE username = ? AND pwd = ?";
         $resultat = $db->prepare($requette);
-        $resultat->execute([$pseudo,$pwd]);
-        if($user = $resultat->fetch()){
-            if($user['etat'] == 1 && $user['role'] == 'ADMIN'){
+        $resultat->execute([$pseudo, $pwd]);
+        if ($user = $resultat->fetch()) {
+            if ($user['etat'] == 1 && $user['role'] == 'ADMIN') {
                 $_SESSION['PROFILE'] = $user;
                 header('location:dashboard.php');
-            }else{
+            } else {
                 $_SESSION['erreur'] = "Attention : Votre Compte est suspendu .Veillez contacter l'administrateur";
                 header('location:login.php');
             }
-        }else{
-                $_SESSION['erreur'] = 'Pseudo ou mot de passe incorrect !';
-                header('location:login.php');
+        } else {
+            $_SESSION['erreur'] = 'Pseudo ou mot de passe incorrect !';
+            header('location:login.php');
         }
     }
 }
 
-if(isset($_SESSION['erreur'])){
+if (isset($_SESSION['erreur'])) {
     $message = $_SESSION['erreur'];
-}else{
+} else {
     $message = "";
 }
 
 ?>
 
-<?php require 'includes/header.php'?>
+<?php require 'includes/header.php' ?>
 
 <body class="bg-primary">
     <div id="layoutAuthentication">
@@ -51,11 +51,11 @@ if(isset($_SESSION['erreur'])){
                                     <h3 class="text-center font-weight-light my-4">Login</h3>
                                 </div>
                                 <div class="card-body">
-                                    <?php if(!empty($message)) :?>
+                                    <?php if (!empty($message)) : ?>
                                         <div class="alert alert-danger">
                                             <?= $message ?>
                                         </div>
-                                     <?php endif ?>
+                                    <?php endif ?>
                                     <form method="POST">
                                         <div class="form-group">
                                             <label class="small mb-1" for="Pseudo">Pseudo</label>
@@ -101,4 +101,4 @@ if(isset($_SESSION['erreur'])){
             </footer>
         </div>
     </div>
-<?php require 'includes/footer.php'?>
+    <?php require 'includes/footer.php' ?>

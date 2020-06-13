@@ -8,16 +8,16 @@ $requette = "SELECT id,username,email,role,etat FROM users ";
 $users = $db->query($requette);
 
 $requette_count = "SELECT COUNT(*) countU FROM users ";
-$resultat_count = $db->query($requette_count );
+$resultat_count = $db->query($requette_count);
 $tabCount = $resultat_count->fetch();
 $nbu = $tabCount['countU'];
 
 ?>
-<?php require 'includes/header.php'?>
+<?php require 'includes/header.php' ?>
 
 <body class="sb-nav-fixed">
 	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-		<a class="navbar-brand" href="index.php">Mon Application</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button><!-- Navbar Search-->
+		<a class="navbar-brand" href="dashboard	.php">Mon Application</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button><!-- Navbar Search-->
 		<form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
 			<div class="input-group">
 				<input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
@@ -27,7 +27,7 @@ $nbu = $tabCount['countU'];
 			</div>
 		</form>
 		<a href="#">
-		     Bienvenue <?php echo((isset($_SESSION['PROFILE'])) ? ($_SESSION['PROFILE']['username']) : "" )?>
+			Bienvenue <?php echo ((isset($_SESSION['PROFILE'])) ? ($_SESSION['PROFILE']['username']) : "") ?>
 		</a>
 		<!-- Navbar-->
 		<ul class="navbar-nav ml-auto ml-md-0">
@@ -46,7 +46,7 @@ $nbu = $tabCount['countU'];
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-						<a class="nav-link" href="index.php">
+						<a class="nav-link" href="dashboard.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
 							Tableau de Bord
 						</a>
@@ -136,9 +136,9 @@ $nbu = $tabCount['countU'];
 								</div>
 							</div>
 						</div>
-                    </div>
-                    <div class="card mb-4">
-						<div class="card-header bg-info"><i class="fas fa-user mr-1"></i>Liste des utilisateurs 
+					</div>
+					<div class="card mb-4">
+						<div class="card-header bg-info"><i class="fas fa-user mr-1"></i>Liste des utilisateurs
 							<a href="add_u.php" class="btn btn-primary"><i class="fas fa-plus"></i></a>
 						</div>
 						<div class="card-body bg-light">
@@ -149,32 +149,32 @@ $nbu = $tabCount['countU'];
 											<th>Username</th>
 											<th>Email</th>
 											<th>Role</th>
-                                            <th>Etat du compte </th>
+											<th>Etat du compte </th>
 											<th>Actions</th>
-                                        </tr>
+										</tr>
 									</thead>
 									<tbody>
-                                    <?php while($user = $users->fetch()) :?>
-										<tr>
-											<td><?= $user['username']?></td>
-											<td><?= $user['email']?></td>
-                                            <td><?= $user['role']?></td>
-                                            <td>
-												<a href="activer_compte.php?id=<?= $user['id']?>&etat=<?= $user['etat']?>">
-													<?php
-														if($user['etat'] == 1)
+										<?php while ($user = $users->fetch()) : ?>
+											<tr>
+												<td><?= $user['username'] ?></td>
+												<td><?= $user['email'] ?></td>
+												<td><?= $user['role'] ?></td>
+												<td>
+													<a href="activer_compte.php?id=<?= $user['id'] ?>&etat=<?= $user['etat'] ?>">
+														<?php
+														if ($user['etat'] == 1)
 															echo '<button class="btn btn-success btn-block">Actif</button>';
 														else
 															echo '<button class="btn btn-danger btn-block">Suspendu</button>';
-													?>
-												</a>
-											</td>
-                                            <td>
-                                                <a href="edit_u.php?id=<?= $user['id'] ?>" class="btn btn-info mr-2">Editer <i class="fas fa-edit"></i></a>
-                                                <a href="delete_u.php?id=<?= $user['id'] ?>" class="btn btn-danger mr-2">Supprimer <i class="fas fa-trash"></i></a>
-											</td>
-                                        </tr>
-                                    <?php endwhile ;?>
+														?>
+													</a>
+												</td>
+												<td>
+													<a href="edit_u.php?id=<?= $user['id'] ?>" class="btn btn-info mr-2">Editer <i class="fas fa-edit"></i></a>
+													<a href="delete_u.php?id=<?= $user['id'] ?>" class="btn btn-danger mr-2">Supprimer <i class="fas fa-trash"></i></a>
+												</td>
+											</tr>
+										<?php endwhile; ?>
 									</tbody>
 								</table>
 							</div>
@@ -196,4 +196,4 @@ $nbu = $tabCount['countU'];
 			</footer>
 		</div>
 	</div>
-<?php require 'includes/footer.php'?>
+	<?php require 'includes/footer.php' ?>
