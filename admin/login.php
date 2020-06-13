@@ -15,16 +15,16 @@ if(!empty($_POST)){
         $resultat = $db->prepare($requette);
         $resultat->execute([$pseudo,$pwd]);
         if($user = $resultat->fetch()){
-           if($user['role'] == 'ADMIN'){
-               $_SESSION['PROFILE'] = $user;
-               header('location:dashboard.php');
-           }else{
-               $_SESSION['erreur'] = "Attention : Votre Compte est suspendu pour le moment .Veillez contacter l'administrateur";
-               header('location:login.php');
-           }
-        } else{
-            $_SESSION['erreur'] = "Pseudo ou mot de passe incorrect !";
-            header('loocation:login.php');
+            if($user['etat'] == 1 && $user['role'] == 'ADMIN'){
+                $_SESSION['PROFILE'] = $user;
+                header('location:dashboard.php');
+            }else{
+                $_SESSION['erreur'] = "Attention : Votre Compte est suspendu .Veillez contacter l'administrateur";
+                header('location:login.php');
+            }
+        }else{
+                $_SESSION['erreur'] = 'Pseudo ou mot de passe incorrect !';
+                header('location:login.php');
         }
     }
 }

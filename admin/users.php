@@ -4,7 +4,7 @@ session_start();
 
 require_once '../database/db.php';
 
-$requette = "SELECT username,nom,prenom,role,etat FROM users ";
+$requette = "SELECT id,username,email,role,etat FROM users ";
 $users = $db->query($requette);
 
 $requette_count = "SELECT COUNT(*) countU FROM users ";
@@ -82,7 +82,8 @@ $nbu = $tabCount['countU'];
 						<a class="nav-link" href="charts.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
 							Charts
-						</a><a class="nav-link" href="tables.php">
+						</a>
+						<a class="nav-link" href="tables.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
 							Tables
 						</a>
@@ -137,34 +138,43 @@ $nbu = $tabCount['countU'];
 						</div>
                     </div>
                     <div class="card mb-4">
-						<div class="card-header bg-info"><i class="fas fa-user mr-1"></i>Liste des utilisateurs</div>
+						<div class="card-header bg-info"><i class="fas fa-user mr-1"></i>Liste des utilisateurs 
+							<a href="add_u.php" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+						</div>
 						<div class="card-body bg-light">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 										<tr>
-											<th>Nom</th>
-											<th>Prénom</th>
-											<th>Login</th>
+											<th>Username</th>
+											<th>Email</th>
 											<th>Role</th>
                                             <th>Etat du compte </th>
-                                            <th>Actions</th>
+											<th>Actions</th>
                                         </tr>
 									</thead>
 									<tbody>
                                     <?php while($user = $users->fetch()) :?>
 										<tr>
-                                            <td><?= $user['nom']?></td>
-                                            <td><?= $user['prenom']?></td>
-                                            <td><?= $user['username']?></td>
+											<td><?= $user['username']?></td>
+											<td><?= $user['email']?></td>
                                             <td><?= $user['role']?></td>
-                                            <td><?= $user['etat']?></td>
                                             <td>
-                                                <a href="#" class="btn btn-info mr-2">Editer <i class="fas fa-edit"></i></a>
-                                                <a href="#" class="btn btn-danger mr-2">Supprimer <i class="fas fa-trash"></i></a>
-                                            </td>
+												<a href="activer_compte.php?id=<?= $user['id']?>&etat=<?= $user['etat']?>">
+													<?php
+														if($user['etat'] == 1)
+															echo '<button class="btn btn-success btn-block">Actif</button>';
+														else
+															echo '<button class="btn btn-danger btn-block">Suspendu</button>';
+													?>
+												</a>
+											</td>
+                                            <td>
+                                                <a href="edit_u.php?id=<?= $user['id'] ?>" class="btn btn-info mr-2">Editer <i class="fas fa-edit"></i></a>
+                                                <a href="delete_u.php?id=<?= $user['id'] ?>" class="btn btn-danger mr-2">Supprimer <i class="fas fa-trash"></i></a>
+											</td>
                                         </tr>
-                                    <?php endwhile ?>
+                                    <?php endwhile ;?>
 									</tbody>
 								</table>
 							</div>
@@ -175,7 +185,7 @@ $nbu = $tabCount['countU'];
 			<footer class="py-4 bg-light mt-auto">
 				<div class="container-fluid">
 					<div class="d-flex align-items-center justify-content-between small">
-						<div class="text-muted">Copyright &copy; Mon Site -web 2020</div>
+						<div class="text-muted">Copyright &copy; Mon Site - web 2020</div>
 						<div>
 							<a href="#">Privacy Policy</a>
 							&middot;
